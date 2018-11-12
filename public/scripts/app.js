@@ -7,7 +7,6 @@ var app = {
     title: 'Incecision App',
     subtitle: 'Info'
 };
-
 var template = React.createElement(
     'div',
     null,
@@ -42,6 +41,13 @@ var user = {
     age: 26,
     location: 'Rio de Janeiro'
 };
+function getLocation(location) {
+    if (location) {
+        return location;
+    } else {
+        return 'Unknown';
+    }
+};
 var templateTwo = React.createElement(
     'div',
     null,
@@ -60,10 +66,10 @@ var templateTwo = React.createElement(
         'p',
         null,
         'Location: ',
-        user.location
+        getLocation(user.location)
     )
 );
 
 var appRoot = document.getElementById('App');
 
-ReactDOM.render(template, appRoot);
+ReactDOM.render(templateTwo, appRoot);
