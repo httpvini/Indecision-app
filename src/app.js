@@ -3,12 +3,14 @@ console.log("App js is running");
 
 var app = {
     title: 'Incecision App',
-    subtitle: 'Info'
+    subtitle: 'Info',
+    options: ['one', 'two']
 };
 var template = (
     <div>
         <h1>{app.title}</h1>
-        <p>{app.subtitle}</p>
+        {app.subtitle && <p>{app.subtitle}</p>}
+        <p>{app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
         <ul>
             <li>Alfred</li>
             <li>Bruce</li>
@@ -23,19 +25,17 @@ var user = {
 };
 function getLocation(location){
     if(location){
-        return location;
-    } else {
-        return 'Unknown';
-    }
+        return <p>Location: {location}</p>
+    } 
 };
 var templateTwo = (
     <div>
-        <h1>{user.name}</h1>
-        <p>Age: {user.age}</p>
-        <p>Location: {getLocation(user.location)}</p>
+        <h1>{user.name ? user.name : 'Anonymous'}</h1>
+        {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
+        {getLocation(user.location)}
     </div>
 );
 
 var appRoot = document.getElementById('App');
 
-ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);

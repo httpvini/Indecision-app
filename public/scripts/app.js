@@ -5,7 +5,8 @@ console.log("App js is running");
 
 var app = {
     title: 'Incecision App',
-    subtitle: 'Info'
+    subtitle: 'Info',
+    options: ['one', 'two']
 };
 var template = React.createElement(
     'div',
@@ -15,10 +16,15 @@ var template = React.createElement(
         null,
         app.title
     ),
-    React.createElement(
+    app.subtitle && React.createElement(
         'p',
         null,
         app.subtitle
+    ),
+    React.createElement(
+        'p',
+        null,
+        app.options.length > 0 ? 'Here are your options' : 'No options'
     ),
     React.createElement(
         'ul',
@@ -43,9 +49,12 @@ var user = {
 };
 function getLocation(location) {
     if (location) {
-        return location;
-    } else {
-        return 'Unknown';
+        return React.createElement(
+            'p',
+            null,
+            'Location: ',
+            location
+        );
     }
 };
 var templateTwo = React.createElement(
@@ -54,22 +63,17 @@ var templateTwo = React.createElement(
     React.createElement(
         'h1',
         null,
-        user.name
+        user.name ? user.name : 'Anonymous'
     ),
-    React.createElement(
+    user.age && user.age >= 18 && React.createElement(
         'p',
         null,
         'Age: ',
         user.age
     ),
-    React.createElement(
-        'p',
-        null,
-        'Location: ',
-        getLocation(user.location)
-    )
+    getLocation(user.location)
 );
 
 var appRoot = document.getElementById('App');
 
-ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);
