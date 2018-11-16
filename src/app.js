@@ -1,12 +1,12 @@
 console.log("App js is running");
 //JSX - JavaScript XML
 
-var app = {
+const app = {
     title: 'Incecision App',
     subtitle: 'Info',
     options: ['one', 'two']
 };
-var template = (
+const template = (
     <div>
         <h1>{app.title}</h1>
         {app.subtitle && <p>{app.subtitle}</p>}
@@ -18,7 +18,7 @@ var template = (
     </div>
 );
 
-var user = {
+const user = {
     name: 'Marcus',
     age: 26,
     location: 'Rio de Janeiro'
@@ -28,7 +28,7 @@ function getLocation(location){
         return <p>Location: {location}</p>
     } 
 };
-var templateTwo = (
+const templateTwo = (
     <div>
         <h1>{user.name ? user.name : 'Anonymous'}</h1>
         {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
@@ -36,6 +36,6 @@ var templateTwo = (
     </div>
 );
 
-var appRoot = document.getElementById('App');
+const appRoot = document.getElementById('App');
 
 ReactDOM.render(template, appRoot);
