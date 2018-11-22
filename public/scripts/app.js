@@ -1,76 +1,86 @@
 'use strict';
 
-//arguments object - no longer bound with arrow functions
+console.log("App js is running");
+//JSX - JavaScript XML
 
-var add = function add(a, b) {
-    console.log(arguments); //o objeto arguments lista todos os argumentos passados para a função, indenpendente do número de parâmetros pré-definidos.
-    return a + b;
+var app = {
+    title: 'Incecision App',
+    subtitle: 'Info',
+    options: ['one', 'two']
 };
-//console.log(add(300, 100));
+var template = React.createElement(
+    'div',
+    null,
+    React.createElement(
+        'h1',
+        null,
+        app.title
+    ),
+    app.subtitle && React.createElement(
+        'p',
+        null,
+        app.subtitle
+    ),
+    React.createElement(
+        'p',
+        null,
+        app.options.length > 0 ? 'Here are your options' : 'No options'
+    ),
+    React.createElement(
+        'ul',
+        null,
+        React.createElement(
+            'li',
+            null,
+            'Alfred'
+        ),
+        React.createElement(
+            'li',
+            null,
+            'Bruce'
+        )
+    )
+);
 
-
-var addArrow = function addArrow(a, b) {
-    //console.log(arguments); << Em Arrow functions este objeto não está mais disponível.
-    return a + b;
+var count = 0;
+var addOne = function addOne() {
+    console.log('addOne');
 };
-//console.log(add(300, 100));
 
-//this keyword - no longer bound
-
-var user = {
-    name: 'Vinicius',
-    cities: ['Rio de Janeiro', 'Sao Paulo', 'Curitiba'],
-    printPlacesLived: function printPlacesLived() {
-        console.log(this.name);
-        console.log(this.cities);
-        //this.cities.forEach(function (){
-        //    console.log(this.name + 'has lived in' + city); 
-        //}); << Uncaught TypeError: Cannot read property 'name' of undefined << 
-        //this.name é acessível dentro do objeto user, na function atribuída a
-        //printPlacesLived, porém não é acessível na function anonima dentro do forEach.
-    }
+var minusOne = function minusOne() {
+    console.log('minusOne');
 };
-//user.printPlacesLived();
 
-var userArrow = {
-    name: 'Vinicius',
-    cities: ['Rio de Janeiro', 'Sao Paulo', 'Curitiba'],
-    printPlacesLived: function printPlacesLived() {
-        var _this = this;
-
-        //sintaxe de método es6
-        this.cities.forEach(function (city) {
-            //usa o "this" do contexto em que foi criado. 
-            console.log(_this.name + ' has lived in ' + city);
-        });
-    }
+var reset = function reset() {
+    console.log('reset');
 };
-//userArrow.printPlacesLived();
 
-var userMap = {
-    name: 'Vinicius',
-    cities: ['Rio de Janeiro', 'Sao Paulo', 'Curitiba'],
-    printPlacesLived: function printPlacesLived() {
-        var _this2 = this;
-
-        return this.cities.map(function (city) {
-            return _this2.name + ' has lived in ' + city;
-        }); //map, além de permitir fazer algo com cada item de um array, cria um novo array a partir das transformações possíveis com cada item do array varrido.    
-    }
-};
-console.log(userMap.printPlacesLived());
-
-//challenge area
-var multiplier = {
-    numbers: [2, 5, 7],
-    multiplyBy: 3,
-    multiply: function multiply() {
-        var _this3 = this;
-
-        //sintaxe es6
-        return this.numbers.map(function (number) {
-            return number * _this3.multiplyBy;
-        }); //retorna array com valor de cada index multiplicado.
-    }
-};
-console.log(multiplier.multiply());
+var templateTwo = React.createElement(
+    'div',
+    null,
+    React.createElement(
+        'h1',
+        null,
+        'Count: ',
+        count
+    ),
+    React.createElement(
+        'button',
+        { onClick: addOne },
+        '+1'
+    ),
+    ' //alguns atributos do html tiveram seus nomes modificados, devido a palavras reservadas do js. verificar doc do react.',
+    React.createElement(
+        'button',
+        { onClick: minusOne },
+        '-1'
+    ),
+    React.createElement(
+        'button',
+        { onClick: reset },
+        'reset'
+    )
+);
+console.log(templateTwo);
+var appRoot = document.getElementById('App');
+ReactDOM.render(templateTwo, appRoot);
