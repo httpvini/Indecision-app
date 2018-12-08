@@ -20,25 +20,36 @@ const template = (
 
 let count = 0;
 const addOne = () => {
-    console.log('addOne');
+    count++;
+    renderCounterApp();
 };
 
 const minusOne = () => {
-    console.log('minusOne');
+    count--;
+    renderCounterApp();
 };
 
 const reset = () => {
-    console.log('reset');
+    count = 0;
+    renderCounterApp();
 };
 
-const templateTwo = (
-    <div>
-        <h1>Count: {count}</h1>
-        <button onClick={addOne}>+1</button> //alguns atributos do html tiveram seus nomes modificados, devido a palavras reservadas do js. verificar doc do react.
-        <button onClick={minusOne}>-1</button>
-        <button onClick={reset}>reset</button>
-    </div>
-);
-console.log(templateTwo);
+
 const appRoot = document.getElementById('App');
-ReactDOM.render(templateTwo, appRoot);
+
+
+//behind the scenes - um teste de manual data binding. Function para renderizar
+const renderCounterApp = () => {
+    const templateTwo = (
+        <div>
+            <h1>Count: {count}</h1>
+            <button onClick={addOne}>+1</button>
+            <button onClick={minusOne}>-1</button>
+            <button onClick={reset}>reset</button>
+        </div>
+    );
+
+    ReactDOM.render(templateTwo, appRoot);
+}
+
+renderCounterApp();
