@@ -14,7 +14,7 @@ var app = {
         return this.options.map(function (option) {
             return React.createElement(
                 'li',
-                null,
+                { key: option },
                 option
             );
         }); //retorna array com valor de cada index em jsx.
@@ -40,8 +40,22 @@ var onClickRemoveAll = function onClickRemoveAll(e) {
     console.log(app.options);
 };
 
+var numers = [65, 101, 1000];
+
 var renderApp = function renderApp() {
-    var template = React.createElement(
+    var template =
+    // {
+    //     [99, 98, 97] Ao colocar um array em uma expression para rendereizar no jsx, ele quebra cada elemento do array em uma expression individual 
+    // }
+    // {
+    //     [<p key='1'>a</p>,<p key='2'>b</p>,<p key='3'>c</p>] o atributo key é necessário qnd trabalhamos com elementos html dentro de arrays. Funciona como o index para os elementos "repetidos". 
+    // }
+    // {
+    //     numers.map((number) => {
+    //         return <p key={number}>Number: {number}</p>;
+    //     })
+    // }
+    React.createElement(
         'div',
         null,
         React.createElement(
