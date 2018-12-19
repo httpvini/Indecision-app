@@ -7,18 +7,29 @@ const appRoot = document.getElementById('App');
 const app = {
     title: 'Incecision App',
     subtitle: 'Info',
-    options: []
+    options: [],
+    listOption() { 
+        return this.options.map((option) => <li>{option}</li>); //retorna array com valor de cada index em jsx.
+    }
 };
 
 const onFormSubmit = (e) => {
-    e.preventDefault();
-    const option = e.target.elements.option.value;
+    e.preventDefault(); //impede o refresh da página inteira, deixando essa function como handler do evento.
+    const option = e.target.elements.option.value; //target aponta para o elemento html de onde vem o evento, no caso form. option é o name do elemento html.
     
     if(option){
         app.options.push(option);
         e.target.elements.option.value = '';
         renderApp();
+        console.log(app.options);
     }
+}
+
+const onClickRemoveAll = (e) => {
+    e.preventDefault();
+    app.options = [];
+    renderApp();
+    console.log(app.options);
 }
 
 const renderApp = () => {
@@ -28,10 +39,9 @@ const renderApp = () => {
             {app.subtitle && <p>{app.subtitle}</p>}
             <p>{app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
             <p>{app.options.length}</p>
+            <button onClick={onClickRemoveAll}>Remove All</button>
             <ul>
-                <li>Alfred</li>
-                <li>Bruce</li>
-                <li>Barbara</li>
+                {app.listOption()}                
             </ul>
             <form onSubmit={onFormSubmit}>
                 <input type='text' name='option' />

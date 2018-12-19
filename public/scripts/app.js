@@ -9,18 +9,35 @@ var appRoot = document.getElementById('App');
 var app = {
     title: 'Incecision App',
     subtitle: 'Info',
-    options: []
+    options: [],
+    listOption: function listOption() {
+        return this.options.map(function (option) {
+            return React.createElement(
+                'li',
+                null,
+                option
+            );
+        }); //retorna array com valor de cada index em jsx.
+    }
 };
 
 var onFormSubmit = function onFormSubmit(e) {
-    e.preventDefault();
-    var option = e.target.elements.option.value;
+    e.preventDefault(); //impede o refresh da página inteira, deixando essa function como handler do evento.
+    var option = e.target.elements.option.value; //target aponta para o elemento html de onde vem o evento, no caso form. option é o name do elemento html.
 
     if (option) {
         app.options.push(option);
         e.target.elements.option.value = '';
         renderApp();
+        console.log(app.options);
     }
+};
+
+var onClickRemoveAll = function onClickRemoveAll(e) {
+    e.preventDefault();
+    app.options = [];
+    renderApp();
+    console.log(app.options);
 };
 
 var renderApp = function renderApp() {
@@ -48,23 +65,14 @@ var renderApp = function renderApp() {
             app.options.length
         ),
         React.createElement(
+            'button',
+            { onClick: onClickRemoveAll },
+            'Remove All'
+        ),
+        React.createElement(
             'ul',
             null,
-            React.createElement(
-                'li',
-                null,
-                'Alfred'
-            ),
-            React.createElement(
-                'li',
-                null,
-                'Bruce'
-            ),
-            React.createElement(
-                'li',
-                null,
-                'Barbara'
-            )
+            app.listOption()
         ),
         React.createElement(
             'form',
