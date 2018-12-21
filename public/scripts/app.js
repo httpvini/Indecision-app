@@ -2,6 +2,13 @@
 
 var appRoot = document.getElementById('App');
 
+var toggle = false;
+
+var onToggle = function onToggle() {
+    toggle = !toggle;
+    renderApp();
+};
+
 var renderApp = function renderApp() {
     var template = React.createElement(
         'div',
@@ -13,8 +20,17 @@ var renderApp = function renderApp() {
         ),
         React.createElement(
             'button',
+            { onClick: onToggle },
+            toggle ? 'Hide details' : 'Show details'
+        ),
+        toggle && React.createElement(
+            'div',
             null,
-            'Show details'
+            React.createElement(
+                'p',
+                null,
+                'Something'
+            )
         )
     );
     ReactDOM.render(template, appRoot);
